@@ -1,2 +1,13 @@
-# cache-mess
-A benchmark with PSR-6 and PSR-16 providers
+# Cache mess
+
+This is a simple benchmark of PSR-16 and PSR-6.
+
+## Running & cleaning up
+
+Make sure you have Docker and `docker-compose` installed, then run:
+
+```bash
+$ docker-compose build \
+    && docker-compose run --rm runner \
+    && docker-compose down
+```

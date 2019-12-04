@@ -1,0 +1,6 @@
+/.git
+/vendor
+/.gitignore
+/.idea
+/Dockerfile
+/docker-compose.yml
