@@ -1,6 +1,6 @@
 # Cache mess
 
-This is a simple benchmark of PSR-16 and PSR-6.
+This is a simple benchmark of PSR-16 and PSR-6 implementations.
 
 ## Running & cleaning up
 
