@@ -21,6 +21,6 @@ final class SingleSaveWithoutTTL extends CacheComparison
 
     public function benchPsr6Symfony(): void
     {
-        $this->psr6Symfony->save($this->psr6ItemFactory->getItem('save-without-ttl')->set('a-simple-item'));
+        $this->psr6Symfony->save($this->psr6SymfonyFactory->getItem('save-without-ttl')->set('a-simple-item'));
     }
 }

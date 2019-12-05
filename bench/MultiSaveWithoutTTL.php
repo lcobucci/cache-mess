@@ -40,7 +40,7 @@ final class MultiSaveWithoutTTL extends CacheComparison
     public function benchPsr6Symfony(): void
     {
         foreach ($this->items as $key => $value) {
-            $this->psr6Symfony->saveDeferred($this->psr6ItemFactory->getItem($key)->set($value));
+            $this->psr6Symfony->saveDeferred($this->psr6SymfonyFactory->getItem($key)->set($value));
         }
 
         $this->psr6Symfony->commit();
