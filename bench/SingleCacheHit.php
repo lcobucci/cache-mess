@@ -18,7 +18,7 @@ final class SingleCacheHit extends CacheComparison
         $this->init();
 
         $this->psr16Roave->set('item-for-retrieval', 'retrieve-me');
-        $this->psr6Symfony->save($this->psr6Symfony->getItem('item-for-retrieval')->set('retrieve-me'));
+        $this->psr6Symfony->save($this->psr6ItemFactory->getItem('item-for-retrieval')->set('retrieve-me'));
     }
 
     public function cleanup(): void

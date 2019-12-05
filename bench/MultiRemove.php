@@ -21,7 +21,7 @@ final class MultiRemove extends CacheComparison
             $this->keys[] = $key;
 
             $this->psr16Roave->set($key, 'retrieve-me');
-            $this->psr6Symfony->save($this->psr6Symfony->getItem($key)->set('retrieve-me'));
+            $this->psr6Symfony->save($this->psr6ItemFactory->getItem($key)->set('retrieve-me'));
         }
     }
 

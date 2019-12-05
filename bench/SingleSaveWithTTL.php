@@ -19,7 +19,7 @@ final class SingleSaveWithTTL extends CacheComparison
 
     public function benchPsr6Symfony(): void
     {
-        $item = $this->psr6Symfony->getItem('save-with-ttl')->set('a-simple-item')->expiresAfter(86400);
+        $item = $this->psr6ItemFactory->getItem('save-with-ttl')->set('a-simple-item')->expiresAfter(86400);
 
         $this->psr6Symfony->save($item);
     }
