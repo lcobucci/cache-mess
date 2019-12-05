@@ -36,7 +36,7 @@ final class MultiCacheHitAndMiss extends CacheComparison
             $value = $i % 10 === 0 ? false : 'retrieve-me';
 
             $this->psr16Roave->set($key, $value);
-            $this->psr6Symfony->save($this->psr6Symfony->getItem($key)->set($value));
+            $this->psr6Symfony->save($this->psr6ItemFactory->getItem($key)->set($value));
         }
     }
 

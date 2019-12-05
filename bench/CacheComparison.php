@@ -10,6 +10,7 @@ use Psr\SimpleCache\CacheInterface as PSR16Cache;
 use Redis;
 use Roave\DoctrineSimpleCache\SimpleCacheAdapter;
 use Symfony\Component\Cache\Adapter\RedisAdapter as PSR6Redis;
+use Symfony\Component\Cache\Adapter\NullAdapter as ItemFactory;
 use function getenv;
 
 /** @BeforeMethods({"init"}) */
@@ -23,6 +24,7 @@ abstract class CacheComparison
         $redis = new Redis();
         $redis->connect(getenv('REDIS_HOST'));
 
+        $this->psr6ItemFactory = new ItemFactory();
         $this->psr6Symfony = new PSR6Redis($redis, 'psr6');
         $this->psr6Symfony->enableVersioning();
 

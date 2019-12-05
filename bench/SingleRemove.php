@@ -14,7 +14,7 @@ final class SingleRemove extends CacheComparison
         $this->init();
 
         $this->psr16Roave->set('item-for-removal', 'remove-me');
-        $this->psr6Symfony->save($this->psr6Symfony->getItem('item-for-removal')->set('remove-me'));
+        $this->psr6Symfony->save($this->psr6ItemFactory->getItem('item-for-removal')->set('remove-me'));
     }
 
     public function benchPsr16Roave(): void
