@@ -26,7 +26,7 @@ abstract class CacheComparison
         $redis->connect(getenv('REDIS_HOST'));
 
         $this->psr6SymfonyFactory = new ItemFactory();
-        $this->psr6Symfony        = new PSR6Redis($redis, 'psr6');
+        $this->psr6Symfony        = new PSR6Redis($redis, 'psr6Symfony');
         $this->psr6Symfony->enableVersioning();
 
         $provider = new DoctrineRedis();
