@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Lcobucci\CacheBench;
 
 use Doctrine\Common\Cache\RedisCache as DoctrineRedis;
+use Lcobucci\CacheStuff\RedisAdapter as PSR16Naive;
 use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use Psr\Cache\CacheItemPoolInterface as PSR6Cache;
 use Psr\SimpleCache\CacheInterface as PSR16Cache;
@@ -17,6 +18,7 @@ use function getenv;
 abstract class CacheComparison
 {
     protected PSR16Cache $psr16Roave;
+    protected PSR16Cache $psr16Naive;
     protected PSR6Cache $psr6Symfony;
     protected PSR6Cache $psr6SymfonyFactory;
 
@@ -34,5 +36,6 @@ abstract class CacheComparison
         $provider->setRedis($redis);
 
         $this->psr16Roave = new SimpleCacheAdapter($provider);
+        $this->psr16Naive = new PSR16Naive($redis, 'psr16Naive');
     }
 }

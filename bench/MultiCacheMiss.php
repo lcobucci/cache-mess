@@ -35,6 +35,19 @@ final class MultiCacheMiss extends CacheComparison
         assert($count === count($this->keys));
     }
 
+    public function benchPsr16Naive(): void
+    {
+        $items = $this->psr16Naive->getMultiple($this->keys);
+        $count = 0;
+
+        foreach ($items as $item) {
+            ++$count;
+            assert($item === null);
+        }
+
+        assert($count === count($this->keys));
+    }
+
     public function benchPsr6Symfony(): void
     {
         $items = $this->psr6Symfony->getItems($this->keys);

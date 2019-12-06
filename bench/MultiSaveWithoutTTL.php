@@ -29,12 +29,18 @@ final class MultiSaveWithoutTTL extends CacheComparison
         $keys = array_keys($this->items);
 
         $this->psr16Roave->deleteMultiple($keys);
+        $this->psr16Naive->deleteMultiple($keys);
         $this->psr6Symfony->deleteItems($keys);
     }
 
     public function benchPsr16Roave(): void
     {
         assert($this->psr16Roave->setMultiple($this->items) === true);
+    }
+
+    public function benchPsr16Naive(): void
+    {
+        assert($this->psr16Naive->setMultiple($this->items) === true);
     }
 
     public function benchPsr6Symfony(): void

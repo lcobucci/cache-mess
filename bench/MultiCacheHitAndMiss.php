@@ -36,6 +36,7 @@ final class MultiCacheHitAndMiss extends CacheComparison
             $value = $i % 10 === 0 ? false : 'retrieve-me';
 
             $this->psr16Roave->set($key, $value);
+            $this->psr16Naive->set($key, $value);
             $this->psr6Symfony->save($this->psr6SymfonyFactory->getItem($key)->set($value));
         }
     }
@@ -43,12 +44,28 @@ final class MultiCacheHitAndMiss extends CacheComparison
     public function cleanup(): void
     {
         $this->psr16Roave->deleteMultiple($this->keys);
+        $this->psr16Naive->deleteMultiple($this->keys);
         $this->psr6Symfony->deleteItems($this->keys);
     }
 
     public function benchPsr16Roave(): void
     {
         $items = $this->psr16Roave->getMultiple($this->keys);
+        $count = 0;
+
+        foreach ($items as $key => $item) {
+            ++$count;
+
+            $expectedValue = $this->getExpectedValue($key);
+            assert($item === $expectedValue);
+        }
+
+        assert($count === count($this->keys));
+    }
+
+    public function benchPsr16Naive(): void
+    {
+        $items = $this->psr16Naive->getMultiple($this->keys);
         $count = 0;
 
         foreach ($items as $key => $item) {

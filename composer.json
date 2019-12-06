@@ -24,7 +24,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Lcobucci\\CacheBench\\": "bench"
+            "Lcobucci\\CacheBench\\": "bench",
+            "Lcobucci\\CacheStuff\\": "lib"
         }
     },
     "require-dev": {

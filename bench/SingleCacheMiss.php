@@ -12,6 +12,11 @@ final class SingleCacheMiss extends CacheComparison
         assert($this->psr16Roave->get('item-for-retrieval') === null);
     }
 
+    public function benchPsr16Naive(): void
+    {
+        assert($this->psr16Naive->get('item-for-retrieval') === null);
+    }
+
     public function benchPsr6Symfony(): void
     {
         assert($this->psr6Symfony->getItem('item-for-retrieval')->get() === null);
