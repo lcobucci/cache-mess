@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Lcobucci\CacheBench;
 
+use Lcobucci\CacheStuff\CacheEntry;
+use Lcobucci\CacheStuff\Psr16CacheEntry;
 use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use Psr\Cache\CacheItemInterface;
@@ -35,8 +37,8 @@ final class MultiCacheHitAndMiss extends CacheComparison
 
             $value = $i % 10 === 0 ? false : 'retrieve-me';
 
-            $this->psr16Roave->set($key, $value);
-            $this->psr16Naive->set($key, $value);
+            $this->psr16Roave->set($key, new Psr16CacheEntry($value));
+            $this->psr16Naive->set($key, new Psr16CacheEntry($value));
             $this->psr6Symfony->save($this->psr6SymfonyFactory->getItem($key)->set($value));
         }
     }
@@ -57,7 +59,7 @@ final class MultiCacheHitAndMiss extends CacheComparison
             ++$count;
 
             $expectedValue = $this->getExpectedValue($key);
-            assert($item === $expectedValue);
+            assert(!$expectedValue || $item->data === $expectedValue);
         }
 
         assert($count === count($this->keys));
@@ -72,7 +74,7 @@ final class MultiCacheHitAndMiss extends CacheComparison
             ++$count;
 
             $expectedValue = $this->getExpectedValue($key);
-            assert($item === $expectedValue);
+            assert(!$expectedValue || $item->data === $expectedValue);
         }
 
         assert($count === count($this->keys));

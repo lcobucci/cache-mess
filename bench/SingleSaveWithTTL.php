@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Lcobucci\CacheBench;
 
+use Lcobucci\CacheStuff\Psr16CacheEntry;
 use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 
 /** @AfterMethods({"cleanup"}) */
@@ -17,12 +18,12 @@ final class SingleSaveWithTTL extends CacheComparison
 
     public function benchPsr16Roave(): void
     {
-        $this->psr16Roave->set('save-with-ttl', 'a-simple-item', 86400);
+        $this->psr16Roave->set('save-with-ttl', new Psr16CacheEntry('a-simple-item'), 86400);
     }
 
     public function benchPsr16Naive(): void
     {
-        $this->psr16Naive->set('save-with-ttl', 'a-simple-item', 86400);
+        $this->psr16Naive->set('save-with-ttl', new Psr16CacheEntry('a-simple-item'), 86400);
     }
 
     public function benchPsr6Symfony(): void

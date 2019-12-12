@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Lcobucci\CacheBench;
 
+use Lcobucci\CacheStuff\Psr16CacheEntry;
 use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use function assert;
 
@@ -13,8 +14,8 @@ final class SingleRemove extends CacheComparison
     {
         $this->init();
 
-        $this->psr16Roave->set('item-for-removal', 'remove-me');
-        $this->psr16Naive->set('item-for-removal', 'remove-me');
+        $this->psr16Roave->set('item-for-removal', new Psr16CacheEntry('remove-me'));
+        $this->psr16Naive->set('item-for-removal', new Psr16CacheEntry('remove-me'));
         $this->psr6Symfony->save($this->psr6SymfonyFactory->getItem('item-for-removal')->set('remove-me'));
     }
 

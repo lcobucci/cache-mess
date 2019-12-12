@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Lcobucci\CacheBench;
 
+use Lcobucci\CacheStuff\Psr16CacheEntry;
 use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use function assert;
@@ -24,8 +25,8 @@ final class MultiCacheHit extends CacheComparison
             $key          = 'item-for-retrieval-' . $i;
             $this->keys[] = $key;
 
-            $this->psr16Roave->set($key, 'retrieve-me');
-            $this->psr16Naive->set($key, 'retrieve-me');
+            $this->psr16Roave->set($key, new Psr16CacheEntry('retrieve-me'));
+            $this->psr16Naive->set($key, new Psr16CacheEntry('retrieve-me'));
             $this->psr6Symfony->save($this->psr6SymfonyFactory->getItem($key)->set('retrieve-me'));
         }
     }
@@ -40,14 +41,14 @@ final class MultiCacheHit extends CacheComparison
     public function benchPsr16Roave(): void
     {
         foreach ($this->psr16Roave->getMultiple($this->keys) as $item) {
-            assert($item === 'retrieve-me');
+            assert($item->data === 'retrieve-me');
         }
     }
 
     public function benchPsr16Naive(): void
     {
         foreach ($this->psr16Naive->getMultiple($this->keys) as $item) {
-            assert($item === 'retrieve-me');
+            assert($item->data === 'retrieve-me');
         }
     }
 

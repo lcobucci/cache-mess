@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Lcobucci\CacheBench;
 
+use Lcobucci\CacheStuff\Psr16CacheEntry;
 use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use function assert;
@@ -17,8 +18,8 @@ final class SingleCacheHit extends CacheComparison
     {
         $this->init();
 
-        $this->psr16Roave->set('item-for-retrieval', 'retrieve-me');
-        $this->psr16Naive->set('item-for-retrieval', 'retrieve-me');
+        $this->psr16Roave->set('item-for-retrieval', new Psr16CacheEntry('retrieve-me'));
+        $this->psr16Naive->set('item-for-retrieval', new Psr16CacheEntry('retrieve-me'));
         $this->psr6Symfony->save($this->psr6SymfonyFactory->getItem('item-for-retrieval')->set('retrieve-me'));
     }
 
@@ -31,12 +32,12 @@ final class SingleCacheHit extends CacheComparison
 
     public function benchPsr16Roave(): void
     {
-        assert($this->psr16Roave->get('item-for-retrieval') === 'retrieve-me');
+        assert($this->psr16Roave->get('item-for-retrieval')->data === 'retrieve-me');
     }
 
     public function benchPsr16Naive(): void
     {
-        assert($this->psr16Naive->get('item-for-retrieval') === 'retrieve-me');
+        assert($this->psr16Naive->get('item-for-retrieval')->data === 'retrieve-me');
     }
 
     public function benchPsr6Symfony(): void

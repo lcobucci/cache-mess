@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Lcobucci\CacheBench;
 
+use Lcobucci\CacheStuff\Psr16CacheEntry;
 use PhpBench\Benchmark\Metadata\Annotations\AfterMethods;
 use PhpBench\Benchmark\Metadata\Annotations\BeforeMethods;
 use function array_keys;
@@ -20,7 +21,7 @@ final class MultiSaveWithoutTTL extends CacheComparison
     public function populate(): void
     {
         for ($i = 0; $i < 1000; ++$i) {
-            $this->items['save-without-ttl-' . $i] = 'a-simple-item';
+            $this->items['save-without-ttl-' . $i] = new Psr16CacheEntry('a-simple-item');
         }
     }
 
